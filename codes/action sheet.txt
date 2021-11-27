@@ -1,0 +1,29 @@
+ Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                  child: CupertinoButton(
+                    onPressed: () {
+                      showCupertinoModalPopup<void>(
+                        context: context,
+                        builder: (BuildContext context) => CupertinoActionSheet(
+                          title: const Text('Title'),
+                          message: const Text('Message'),
+                          actions: [
+                            CupertinoActionSheetAction(
+                              child: const Text('Action One'),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                            ),
+                            CupertinoActionSheetAction(
+                              child: const Text('Action Two'),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                            )
+                          ],
+                        ),
+                      );
+                    },
+                    child: const Text('CupertinoActionSheet'),
+                  ),
+                ),

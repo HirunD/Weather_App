@@ -1,0 +1,104 @@
+ListWheelScrollView(
+              itemExtent: 200,
+              diameterRatio: 1.5,
+              useMagnifier: true,
+              magnification: 1.5,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
+                  child: Stack(
+                    alignment: AlignmentDirectional.center,
+                    fit: StackFit.loose,
+                    children: [
+                      Container(
+                        width: double.infinity,
+                        height: 250,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          gradient: LinearGradient(
+                            begin: Alignment.centerLeft,
+                            end: Alignment.centerRight,
+                            colors: [
+                              Color(0xff8E2DE2),
+                              Color(0xff4A00E0),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Text(
+                        "Hi I am Hirun Dilshan",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
+                  child: Stack(
+                    alignment: AlignmentDirectional.center,
+                    fit: StackFit.loose,
+                    children: [
+                      Container(
+                        width: double.infinity,
+                        height: 250,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          gradient: LinearGradient(
+                            begin: Alignment.centerLeft,
+                            end: Alignment.centerRight,
+                            colors: [
+                              Color(0xff8E2DE2),
+                              Color(0xff4A00E0),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Text(
+                        "Hi I am Hirun Dilshan",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
+                  child: Stack(
+                    alignment: AlignmentDirectional.center,
+                    fit: StackFit.loose,
+                    children: [
+                      Container(
+                        width: double.infinity,
+                        height: 250,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          gradient: LinearGradient(
+                            begin: Alignment.centerLeft,
+                            end: Alignment.centerRight,
+                            colors: [
+                              Color(0xff8E2DE2),
+                              Color(0xff4A00E0),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Text(
+                        "Hi I am Hirun Dilshan",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            )
