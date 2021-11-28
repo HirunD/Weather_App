@@ -142,108 +142,328 @@ class _WeatherAppState extends State<WeatherApp> {
     var tempinput = weather?.current.temp;
     var temp = double.parse(tempinput?.toStringAsFixed(1) ?? "0");
     var icon = weather?.current.weather.first.icon ?? "01d";
-    return Scaffold(
-      // appBar: AppBar(
-      //   title: Text(weather?.timezone ?? ""),
-      // ),
-      body: SafeArea(
-        child: RefreshIndicator(
-          onRefresh: getWeatherData,
-          child: Stack(
-            children: [
-              Container(
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage("assets/img/wallpaper.jpg"),
-                    fit: BoxFit.cover,
-                  ),
-                ),
+    return DefaultTabController(
+      initialIndex: 1,
+      length: 3,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const TabBar(
+            tabs: <Widget>[
+              Tab(
+                icon: Icon(Icons.cloud_outlined),
               ),
-              // ignore: unnecessary_string_escapes
-              Container(
-                alignment: Alignment.topCenter,
-                child: Text(
-                  weather?.timezone ?? "",
-                  style: TextStyle(
-                    height: 3,
-                    fontWeight: FontWeight.w900,
-                    fontSize: 35,
-                    color: Colors.grey.shade900,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
+              Tab(
+                icon: Icon(Icons.beach_access_sharp),
               ),
-              Container(
-                alignment: Alignment.center,
-                child: Text(
-                  "$temp C",
-                  style: const TextStyle(
-                    height: -1,
-                    fontWeight: FontWeight.w900,
-                    fontSize: 70,
-                    color: Colors.white,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
+              Tab(
+                icon: Icon(Icons.brightness_5_sharp),
               ),
-              Container(
-                alignment: Alignment.topCenter,
-                child: Text(
-                  "Humidity ${weather?.current.humidity.toString()}%",
-                  style: const TextStyle(
-                    height: 20,
-                    fontWeight: FontWeight.w900,
-                    fontSize: 30,
-                    color: Colors.white,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              Container(
-                child: IconButton(
-                    onPressed: () {
-                      addLocation(FirebaseAuth.instance.currentUser!.uid);
-                    },
-                    color: Colors.black,
-                    icon: Icon(Icons.add_location)),
-              ),
-              Container(
-                padding: EdgeInsets.only(right: 9, left: 9),
-                // width: 300,
-                alignment: Alignment.center,
-                child: TextField(
-                  // obscureText: true,
-                  enableSuggestions: false,
-                  autocorrect: false,
-                  keyboardType: TextInputType.name,
-                  keyboardAppearance: Brightness.dark,
-                  textAlign: TextAlign.center,
-                  textCapitalization: TextCapitalization.words,
-                  decoration: const InputDecoration(
-                    hintText: 'Location_1',
-                  ),
-                  // onChanged: (Text) {
-                  //   // print(Text);
-                  // },
-                  onSubmitted: (Text) {
-                    setState(() {
-                      location_1 = Text;
-                    });
-                    print(location_1);
-                  },
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.only(top: 90),
-                alignment: Alignment.center,
-                child: IconButton(
-                    onPressed: () {
-                      addLocation(FirebaseAuth.instance.currentUser!.uid);
-                    },
-                    icon: Icon(Icons.add)),
-              )
             ],
           ),
+        ),
+        body: TabBarView(
+          children: [
+            SafeArea(
+              child: RefreshIndicator(
+                onRefresh: getWeatherData,
+                child: Stack(
+                  children: [
+                    Container(
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/img/wallpaper.jpg"),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    // ignore: unnecessary_string_escapes
+                    Container(
+                      alignment: Alignment.topCenter,
+                      child: Text(
+                        weather?.timezone ?? "",
+                        style: TextStyle(
+                          height: 3,
+                          fontWeight: FontWeight.w900,
+                          fontSize: 35,
+                          color: Colors.grey.shade900,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    Container(
+                      alignment: Alignment.center,
+                      child: Text(
+                        "$temp C",
+                        style: const TextStyle(
+                          height: -1,
+                          fontWeight: FontWeight.w900,
+                          fontSize: 70,
+                          color: Colors.white,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    Container(
+                      alignment: Alignment.topCenter,
+                      child: Text(
+                        "Humidity ${weather?.current.humidity.toString()}%",
+                        style: const TextStyle(
+                          height: 20,
+                          fontWeight: FontWeight.w900,
+                          fontSize: 30,
+                          color: Colors.white,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    Container(
+                      child: IconButton(
+                          onPressed: () {
+                            addLocation(FirebaseAuth.instance.currentUser!.uid);
+                          },
+                          color: Colors.black,
+                          icon: Icon(Icons.add_location)),
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(right: 9, left: 9),
+                      // width: 300,
+                      alignment: Alignment.center,
+                      child: TextField(
+                        // obscureText: true,
+                        enableSuggestions: false,
+                        autocorrect: false,
+                        keyboardType: TextInputType.name,
+                        keyboardAppearance: Brightness.dark,
+                        textAlign: TextAlign.center,
+                        textCapitalization: TextCapitalization.words,
+                        decoration: const InputDecoration(
+                          hintText: 'Location_1',
+                        ),
+                        // onChanged: (Text) {
+                        //   // print(Text);
+                        // },
+                        onSubmitted: (Text) {
+                          setState(() {
+                            location_1 = Text;
+                          });
+                          print(location_1);
+                        },
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(top: 90),
+                      alignment: Alignment.center,
+                      child: IconButton(
+                          onPressed: () {
+                            addLocation(FirebaseAuth.instance.currentUser!.uid);
+                          },
+                          icon: Icon(Icons.add)),
+                    )
+                  ],
+                ),
+              ),
+            ),
+            SafeArea(
+              child: RefreshIndicator(
+                onRefresh: getWeatherData,
+                child: Stack(
+                  children: [
+                    Container(
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/img/wallpaper.jpg"),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    // ignore: unnecessary_string_escapes
+                    Container(
+                      alignment: Alignment.topCenter,
+                      child: Text(
+                        weather?.timezone ?? "",
+                        style: TextStyle(
+                          height: 3,
+                          fontWeight: FontWeight.w900,
+                          fontSize: 35,
+                          color: Colors.grey.shade900,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    Container(
+                      alignment: Alignment.center,
+                      child: Text(
+                        "$temp C",
+                        style: const TextStyle(
+                          height: -1,
+                          fontWeight: FontWeight.w900,
+                          fontSize: 70,
+                          color: Colors.white,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    Container(
+                      alignment: Alignment.topCenter,
+                      child: Text(
+                        "Humidity ${weather?.current.humidity.toString()}%",
+                        style: const TextStyle(
+                          height: 20,
+                          fontWeight: FontWeight.w900,
+                          fontSize: 30,
+                          color: Colors.white,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    Container(
+                      child: IconButton(
+                          onPressed: () {
+                            addLocation(FirebaseAuth.instance.currentUser!.uid);
+                          },
+                          color: Colors.black,
+                          icon: Icon(Icons.add_location)),
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(right: 9, left: 9),
+                      // width: 300,
+                      alignment: Alignment.center,
+                      child: TextField(
+                        // obscureText: true,
+                        enableSuggestions: false,
+                        autocorrect: false,
+                        keyboardType: TextInputType.name,
+                        keyboardAppearance: Brightness.dark,
+                        textAlign: TextAlign.center,
+                        textCapitalization: TextCapitalization.words,
+                        decoration: const InputDecoration(
+                          hintText: 'Location_1',
+                        ),
+                        // onChanged: (Text) {
+                        //   // print(Text);
+                        // },
+                        onSubmitted: (Text) {
+                          setState(() {
+                            location_1 = Text;
+                          });
+                          print(location_1);
+                        },
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(top: 90),
+                      alignment: Alignment.center,
+                      child: IconButton(
+                          onPressed: () {
+                            addLocation(FirebaseAuth.instance.currentUser!.uid);
+                          },
+                          icon: Icon(Icons.add)),
+                    )
+                  ],
+                ),
+              ),
+            ),
+            SafeArea(
+              child: RefreshIndicator(
+                onRefresh: getWeatherData,
+                child: Stack(
+                  children: [
+                    Container(
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/img/wallpaper.jpg"),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    // ignore: unnecessary_string_escapes
+                    Container(
+                      alignment: Alignment.topCenter,
+                      child: Text(
+                        weather?.timezone ?? "",
+                        style: TextStyle(
+                          height: 3,
+                          fontWeight: FontWeight.w900,
+                          fontSize: 35,
+                          color: Colors.grey.shade900,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    Container(
+                      alignment: Alignment.center,
+                      child: Text(
+                        "$temp C",
+                        style: const TextStyle(
+                          height: -1,
+                          fontWeight: FontWeight.w900,
+                          fontSize: 70,
+                          color: Colors.white,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    Container(
+                      alignment: Alignment.topCenter,
+                      child: Text(
+                        "Humidity ${weather?.current.humidity.toString()}%",
+                        style: const TextStyle(
+                          height: 20,
+                          fontWeight: FontWeight.w900,
+                          fontSize: 30,
+                          color: Colors.white,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    Container(
+                      child: IconButton(
+                          onPressed: () {
+                            addLocation(FirebaseAuth.instance.currentUser!.uid);
+                          },
+                          color: Colors.black,
+                          icon: Icon(Icons.add_location)),
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(right: 9, left: 9),
+                      // width: 300,
+                      alignment: Alignment.center,
+                      child: TextField(
+                        // obscureText: true,
+                        enableSuggestions: false,
+                        autocorrect: false,
+                        keyboardType: TextInputType.name,
+                        keyboardAppearance: Brightness.dark,
+                        textAlign: TextAlign.center,
+                        textCapitalization: TextCapitalization.words,
+                        decoration: const InputDecoration(
+                          hintText: 'Location_1',
+                        ),
+                        // onChanged: (Text) {
+                        //   // print(Text);
+                        // },
+                        onSubmitted: (Text) {
+                          setState(() {
+                            location_1 = Text;
+                          });
+                          print(location_1);
+                        },
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(top: 90),
+                      alignment: Alignment.center,
+                      child: IconButton(
+                          onPressed: () {
+                            addLocation(FirebaseAuth.instance.currentUser!.uid);
+                          },
+                          icon: Icon(Icons.add)),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
