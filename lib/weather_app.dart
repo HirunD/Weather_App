@@ -167,7 +167,8 @@ class _WeatherAppState extends State<WeatherApp> {
             ],
           ),
         ),
-        body: TabBarView(
+        body: 
+        TabBarView(
           children: [
             SafeArea(
               child: RefreshIndicator(
