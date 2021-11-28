@@ -25,11 +25,16 @@ class _WeatherAppState extends State<WeatherApp> {
   bool _initialized = false;
   bool _error = false;
 
-  String location_1 = "";
-  String Location_2 = "";
-  String Location_3 = "";
-  String Location_4 = "";
-  String Location_5 = "";
+  String location_1lat = "";
+  String location_1lon = "";
+  String name1 = "";
+  String wallpaper1 = "";
+
+  String location_2lat = "";
+  String location_2lon = "";
+
+  String location_3lat = "";
+  String location_3lon = "";
 
   // Define an async function to initialize FlutterFire
   void initializeFlutterFire() async {
@@ -117,13 +122,14 @@ class _WeatherAppState extends State<WeatherApp> {
         .doc(uid)
         .set({
           "locations": {
-            "location_1": location_1,
-            "location_2": Location_2,
-            "location_3": "Location",
-            "location_4": "Location",
-            "location_5": "Location",
-            "location_6": "Location",
-            "location_7": "Location",
+            "location_1": {
+              "lat": location_1lat,
+              "lon": location_1lon,
+              "name": name1,
+              "wallpaper": wallpaper1
+            },
+            "location_2": {"lat": location_2lat, "lon": location_2lon},
+            "location_3": {"lat": location_3lat, "lon": location_3lon},
           }
         })
         .then((value) => print("User Added"))
@@ -228,7 +234,63 @@ class _WeatherAppState extends State<WeatherApp> {
                       padding: EdgeInsets.only(right: 9, left: 9),
                       // width: 300,
                       alignment: Alignment.center,
-                      child: TextField(
+                      child: TextFormField(
+                        // obscureText: true,
+                        enableSuggestions: false,
+                        autocorrect: false,
+                        initialValue: position?.latitude.toString() ?? "Lat",
+                        keyboardType: TextInputType.name,
+                        keyboardAppearance: Brightness.dark,
+                        textAlign: TextAlign.center,
+                        textCapitalization: TextCapitalization.words,
+                        decoration: const InputDecoration(
+                          hintText: 'Latitude',
+                        ),
+                        // onChanged: (Text) {
+                        //   // print(Text);
+                        // },
+                        onChanged: (Text) {
+                          setState(() {
+                            location_1lat = Text;
+                          });
+                          print(location_1lat);
+                        },
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(right: 9, left: 9),
+                      // width: 300,
+                      height: 350,
+                      alignment: Alignment.bottomCenter,
+                      child: TextFormField(
+                        // obscureText: true,
+                        enableSuggestions: false,
+                        autocorrect: false,
+                        initialValue: position?.longitude.toString() ?? "Lat",
+                        keyboardType: TextInputType.name,
+                        keyboardAppearance: Brightness.dark,
+                        textAlign: TextAlign.center,
+                        textCapitalization: TextCapitalization.words,
+                        decoration: const InputDecoration(
+                          hintText: 'Longitude',
+                        ),
+                        // onChanged: (Text) {
+                        //   // print(Text);
+                        // },
+                        onChanged: (Text) {
+                          setState(() {
+                            location_3lon = Text;
+                          });
+                          print(location_1lon);
+                        },
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(right: 9, left: 9),
+                      // width: 300,
+                      height: 400,
+                      alignment: Alignment.bottomCenter,
+                      child: TextFormField(
                         // obscureText: true,
                         enableSuggestions: false,
                         autocorrect: false,
@@ -237,27 +299,58 @@ class _WeatherAppState extends State<WeatherApp> {
                         textAlign: TextAlign.center,
                         textCapitalization: TextCapitalization.words,
                         decoration: const InputDecoration(
-                          hintText: 'Location_1',
+                          hintText: 'Name',
                         ),
                         // onChanged: (Text) {
                         //   // print(Text);
                         // },
-                        onSubmitted: (Text) {
+                        onChanged: (Text) {
                           setState(() {
-                            location_1 = Text;
+                            name1 = Text;
                           });
-                          print(location_1);
+                          print(name1);
                         },
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.only(top: 90),
+                      padding: EdgeInsets.only(right: 9, left: 9),
+                      // width: 300,
+                      height: 450,
+                      alignment: Alignment.bottomCenter,
+                      child: TextFormField(
+                        // obscureText: true,
+                        enableSuggestions: false,
+                        autocorrect: false,
+                        initialValue: position?.latitude.toString() ?? "Lat",
+                        keyboardType: TextInputType.name,
+                        keyboardAppearance: Brightness.dark,
+                        textAlign: TextAlign.center,
+                        textCapitalization: TextCapitalization.words,
+                        decoration: const InputDecoration(
+                          hintText: 'Latitude',
+                        ),
+                        // onChanged: (Text) {
+                        //   // print(Text);
+                        // },
+                        onChanged: (Text) {
+                          setState(() {
+                            location_1lat = Text;
+                          });
+                          print(location_1lat);
+                        },
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(top: 390),
                       alignment: Alignment.center,
-                      child: IconButton(
+                      child: TextButton(
                           onPressed: () {
                             addLocation(FirebaseAuth.instance.currentUser!.uid);
                           },
-                          icon: Icon(Icons.add)),
+                          child: const Text(
+                            "Save Changes",
+                            style: TextStyle(color: Colors.white),
+                          )),
                     )
                   ],
                 ),
@@ -328,36 +421,68 @@ class _WeatherAppState extends State<WeatherApp> {
                       padding: EdgeInsets.only(right: 9, left: 9),
                       // width: 300,
                       alignment: Alignment.center,
-                      child: TextField(
+                      child: TextFormField(
                         // obscureText: true,
                         enableSuggestions: false,
                         autocorrect: false,
+                        initialValue: position?.latitude.toString() ?? "Lat",
                         keyboardType: TextInputType.name,
                         keyboardAppearance: Brightness.dark,
                         textAlign: TextAlign.center,
                         textCapitalization: TextCapitalization.words,
                         decoration: const InputDecoration(
-                          hintText: 'Location_1',
+                          hintText: 'Latitude',
                         ),
                         // onChanged: (Text) {
                         //   // print(Text);
                         // },
-                        onSubmitted: (Text) {
+                        onChanged: (Text) {
                           setState(() {
-                            location_1 = Text;
+                            location_2lat = Text;
                           });
-                          print(location_1);
+                          print(location_2lat);
                         },
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.only(top: 90),
+                      padding: EdgeInsets.only(right: 9, left: 9),
+                      // width: 300,
+                      height: 350,
+                      alignment: Alignment.bottomCenter,
+                      child: TextFormField(
+                        // obscureText: true,
+                        enableSuggestions: false,
+                        autocorrect: false,
+                        initialValue: position?.longitude.toString() ?? "Lat",
+                        keyboardType: TextInputType.name,
+                        keyboardAppearance: Brightness.dark,
+                        textAlign: TextAlign.center,
+                        textCapitalization: TextCapitalization.words,
+                        decoration: const InputDecoration(
+                          hintText: 'Longitude',
+                        ),
+                        // onChanged: (Text) {
+                        //   // print(Text);
+                        // },
+                        onChanged: (Text) {
+                          setState(() {
+                            location_2lon = Text;
+                          });
+                          print(location_2lon);
+                        },
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(top: 190),
                       alignment: Alignment.center,
-                      child: IconButton(
+                      child: TextButton(
                           onPressed: () {
                             addLocation(FirebaseAuth.instance.currentUser!.uid);
                           },
-                          icon: Icon(Icons.add)),
+                          child: const Text(
+                            "Add Location",
+                            style: TextStyle(color: Colors.white),
+                          )),
                     )
                   ],
                 ),
@@ -428,36 +553,68 @@ class _WeatherAppState extends State<WeatherApp> {
                       padding: EdgeInsets.only(right: 9, left: 9),
                       // width: 300,
                       alignment: Alignment.center,
-                      child: TextField(
+                      child: TextFormField(
                         // obscureText: true,
                         enableSuggestions: false,
                         autocorrect: false,
+                        initialValue: position?.latitude.toString() ?? "Lat",
                         keyboardType: TextInputType.name,
                         keyboardAppearance: Brightness.dark,
                         textAlign: TextAlign.center,
                         textCapitalization: TextCapitalization.words,
                         decoration: const InputDecoration(
-                          hintText: 'Location_1',
+                          hintText: 'Latitude',
                         ),
                         // onChanged: (Text) {
                         //   // print(Text);
                         // },
-                        onSubmitted: (Text) {
+                        onChanged: (Text) {
                           setState(() {
-                            location_1 = Text;
+                            location_3lat = Text;
                           });
-                          print(location_1);
+                          print(location_3lat);
                         },
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.only(top: 90),
+                      padding: EdgeInsets.only(right: 9, left: 9),
+                      // width: 300,
+                      height: 350,
+                      alignment: Alignment.bottomCenter,
+                      child: TextFormField(
+                        // obscureText: true,
+                        enableSuggestions: false,
+                        autocorrect: false,
+                        initialValue: position?.longitude.toString() ?? "Lat",
+                        keyboardType: TextInputType.name,
+                        keyboardAppearance: Brightness.dark,
+                        textAlign: TextAlign.center,
+                        textCapitalization: TextCapitalization.words,
+                        decoration: const InputDecoration(
+                          hintText: 'Longitude',
+                        ),
+                        // onChanged: (Text) {
+                        //   // print(Text);
+                        // },
+                        onChanged: (Text) {
+                          setState(() {
+                            location_3lon = Text;
+                          });
+                          print(location_3lon);
+                        },
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(top: 190),
                       alignment: Alignment.center,
-                      child: IconButton(
+                      child: TextButton(
                           onPressed: () {
                             addLocation(FirebaseAuth.instance.currentUser!.uid);
                           },
-                          icon: Icon(Icons.add)),
+                          child: const Text(
+                            "Add Location",
+                            style: TextStyle(color: Colors.white),
+                          )),
                     )
                   ],
                 ),
