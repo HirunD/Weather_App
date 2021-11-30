@@ -178,7 +178,7 @@ class _WeatherAppState extends State<WeatherApp> {
               "name": name1,
               "wallpaper": wallpaper1
             },
-            "location_2": {"lat": location_2lat, "lon": location_2lon},
+            "location_2": {"lat": location_1lat, "lon": location_1lon},
             "location_3": {"lat": location_3lat, "lon": location_3lon},
           }
         })
@@ -212,11 +212,11 @@ class _WeatherAppState extends State<WeatherApp> {
               ),
               Tab(
                 child: Image.network(
-                    'http://openweathermap.org/img/wn/${weather2?.current.weather.first.icon ?? "08d"}@2x.png'),
+                    'http://openweathermap.org/img/wn/${weather2?.current.weather.first.icon ?? "10d"}@2x.png'),
               ),
               Tab(
                 child: Image.network(
-                    'http://openweathermap.org/img/wn/${weather3?.current.weather.first.icon ?? "08d"}@2x.png'),
+                    'http://openweathermap.org/img/wn/${weather3?.current.weather.first.icon ?? "10d"}@2x.png'),
               ),
             ],
           ),
@@ -702,12 +702,15 @@ class _WeatherAppState extends State<WeatherApp> {
                             decoration: const InputDecoration(
                               hintText: 'Latitude',
                             ),
-                            // onChanged: (Text) {
-                            //   // print(Text);
-                            // },
                             onChanged: (Text) {
                               setState(() {
                                 location_1lat = Text;
+                              });
+                              print(location_1lat);
+                            },
+                            onSaved: (Text) {
+                              setState(() {
+                                location_1lat = Text.toString();
                               });
                               print(location_1lat);
                             },
@@ -731,14 +734,17 @@ class _WeatherAppState extends State<WeatherApp> {
                             decoration: const InputDecoration(
                               hintText: 'Longitude',
                             ),
-                            // onChanged: (Text) {
-                            //   // print(Text);
-                            // },
                             onChanged: (Text) {
                               setState(() {
-                                location_3lon = Text;
+                                location_1lon = Text;
                               });
                               print(location_1lon);
+                            },
+                            onSaved: (Text) {
+                              setState(() {
+                                location_1lon = Text.toString();
+                              });
+                              print(location_1lat);
                             },
                           ),
                         ),
@@ -767,6 +773,12 @@ class _WeatherAppState extends State<WeatherApp> {
                               });
                               print(name1);
                             },
+                            onSaved: (Text) {
+                              setState(() {
+                                name1 = Text.toString();
+                              });
+                              print(location_1lat);
+                            },
                           ),
                         ),
                         Container(
@@ -785,14 +797,20 @@ class _WeatherAppState extends State<WeatherApp> {
                             textAlign: TextAlign.center,
                             textCapitalization: TextCapitalization.words,
                             decoration: const InputDecoration(
-                              hintText: 'Latitude',
+                              hintText: 'Wallpaper',
                             ),
                             // onChanged: (Text) {
                             //   // print(Text);
                             // },
                             onChanged: (Text) {
                               setState(() {
-                                location_1lat = Text;
+                                wallpaper1 = Text;
+                              });
+                              print(location_1lat);
+                            },
+                            onSaved: (Text) {
+                              setState(() {
+                                wallpaper1 = Text.toString();
                               });
                               print(location_1lat);
                             },
