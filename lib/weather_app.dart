@@ -29,6 +29,8 @@ class _WeatherAppState extends State<WeatherApp> {
   CollectionReference? users; // Add This
   FirebaseAuth? auth;
   Weather? weather;
+  Weather? weather2;
+  Weather? weather3;
   Position? position;
   bool _initialized = false;
   bool _error = false;
@@ -94,14 +96,14 @@ class _WeatherAppState extends State<WeatherApp> {
       var response = await Dio().get(
           'https://api.openweathermap.org/data/2.5/onecall',
           queryParameters: {
-            "lat": name[('locations')][("location_1")][("lat")].toString(),
-            "lon": name[('locations')][("location_1")][("lon")].toString(),
+            "lat": name[('locations')][("location_2")][("lat")].toString(),
+            "lon": name[('locations')][("location_2")][("lon")].toString(),
             "appid": "767033a203c2a38ef86c24a3abcf1788",
             "units": "metric",
           });
       print(response);
       setState(() {
-        weather = Weather.fromJson(response.data);
+        weather2 = Weather.fromJson(response.data);
       });
     } catch (e) {
       print(e);
@@ -113,14 +115,14 @@ class _WeatherAppState extends State<WeatherApp> {
       var response = await Dio().get(
           'https://api.openweathermap.org/data/2.5/onecall',
           queryParameters: {
-            "lat": name[('locations')][("location_1")][("lat")].toString(),
-            "lon": name[('locations')][("location_1")][("lon")].toString(),
+            "lat": name[('locations')][("location_3")][("lat")].toString(),
+            "lon": name[('locations')][("location_3")][("lon")].toString(),
             "appid": "767033a203c2a38ef86c24a3abcf1788",
             "units": "metric",
           });
       print(response);
       setState(() {
-        weather = Weather.fromJson(response.data);
+        weather3 = Weather.fromJson(response.data);
       });
     } catch (e) {
       print(e);
@@ -202,16 +204,19 @@ class _WeatherAppState extends State<WeatherApp> {
       length: 3,
       child: Scaffold(
         appBar: AppBar(
-          title: const TabBar(
+          title: TabBar(
             tabs: <Widget>[
               Tab(
-                icon: Icon(Icons.cloud_outlined),
+                child: Image.network(
+                    'http://openweathermap.org/img/wn/${weather?.current.weather.first.icon ?? "09d"}@2x.png'),
               ),
               Tab(
-                icon: Icon(Icons.beach_access_sharp),
+                child: Image.network(
+                    'http://openweathermap.org/img/wn/${weather2?.current.weather.first.icon ?? "08d"}@2x.png'),
               ),
               Tab(
-                icon: Icon(Icons.brightness_5_sharp),
+                child: Image.network(
+                    'http://openweathermap.org/img/wn/${weather3?.current.weather.first.icon ?? "08d"}@2x.png'),
               ),
             ],
           ),
@@ -411,6 +416,8 @@ class _WeatherAppState extends State<WeatherApp> {
                             initializeFlutterFire();
                             getName();
                             getWeatherData1();
+                            getWeatherData2();
+                            getWeatherData3();
                           },
                           child: const Text(
                             "Refresh",
