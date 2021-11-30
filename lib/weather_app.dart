@@ -70,13 +70,51 @@ class _WeatherAppState extends State<WeatherApp> {
     }
   }
 
-  Future getWeatherData() async {
+  Future getWeatherData1() async {
     try {
       var response = await Dio().get(
           'https://api.openweathermap.org/data/2.5/onecall',
           queryParameters: {
-            "lat": "60",
-            "lon": position?.longitude,
+            "lat": name[('locations')][("location_1")][("lat")].toString(),
+            "lon": name[('locations')][("location_1")][("lon")].toString(),
+            "appid": "767033a203c2a38ef86c24a3abcf1788",
+            "units": "metric",
+          });
+      print(response);
+      setState(() {
+        weather = Weather.fromJson(response.data);
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future getWeatherData2() async {
+    try {
+      var response = await Dio().get(
+          'https://api.openweathermap.org/data/2.5/onecall',
+          queryParameters: {
+            "lat": name[('locations')][("location_1")][("lat")].toString(),
+            "lon": name[('locations')][("location_1")][("lon")].toString(),
+            "appid": "767033a203c2a38ef86c24a3abcf1788",
+            "units": "metric",
+          });
+      print(response);
+      setState(() {
+        weather = Weather.fromJson(response.data);
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future getWeatherData3() async {
+    try {
+      var response = await Dio().get(
+          'https://api.openweathermap.org/data/2.5/onecall',
+          queryParameters: {
+            "lat": name[('locations')][("location_1")][("lat")].toString(),
+            "lon": name[('locations')][("location_1")][("lon")].toString(),
             "appid": "767033a203c2a38ef86c24a3abcf1788",
             "units": "metric",
           });
@@ -91,7 +129,9 @@ class _WeatherAppState extends State<WeatherApp> {
 
   getUserLocation() async {
     position = await _determinePosition();
-    getWeatherData();
+    getWeatherData1();
+    getWeatherData2();
+    getWeatherData3();
   }
 
   Future<Position> _determinePosition() async {
@@ -144,12 +184,10 @@ class _WeatherAppState extends State<WeatherApp> {
         .catchError((error) => print("Failed to add user: $error"));
   }
 
-  var name;
+  late var name;
   Future<void> getName() async {
-    DocumentSnapshot ds = await FirebaseFirestore.instance
-        .collection('users')
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .get();
+    DocumentSnapshot ds =
+        await users!.doc(FirebaseAuth.instance.currentUser!.uid).get();
     name = ds.data();
     print(name);
   }
@@ -182,7 +220,7 @@ class _WeatherAppState extends State<WeatherApp> {
           children: [
             SafeArea(
               child: RefreshIndicator(
-                onRefresh: getWeatherData,
+                onRefresh: getWeatherData1,
                 child: Stack(
                   children: [
                     Container(
@@ -370,8 +408,9 @@ class _WeatherAppState extends State<WeatherApp> {
                       alignment: Alignment.center,
                       child: TextButton(
                           onPressed: () {
-                            getWeatherData();
+                            initializeFlutterFire();
                             getName();
+                            getWeatherData1();
                           },
                           child: const Text(
                             "Refresh",
@@ -384,7 +423,7 @@ class _WeatherAppState extends State<WeatherApp> {
             ),
             SafeArea(
               child: RefreshIndicator(
-                onRefresh: getWeatherData,
+                onRefresh: getWeatherData2,
                 child: Stack(
                   children: [
                     Container(
@@ -516,7 +555,7 @@ class _WeatherAppState extends State<WeatherApp> {
             ),
             SafeArea(
               child: RefreshIndicator(
-                onRefresh: getWeatherData,
+                onRefresh: getWeatherData3,
                 child: Stack(
                   children: [
                     Container(
