@@ -16,6 +16,14 @@ class WeatherApp extends StatefulWidget {
 }
 
 class _WeatherAppState extends State<WeatherApp> {
+  @override
+  void initState() {
+    super.initState();
+    initializeFlutterFire();
+    getUserLocation();
+    getName();
+  }
+
   Tween<double> _tween = Tween(begin: 0.75, end: 2);
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
   CollectionReference? users; // Add This
@@ -67,7 +75,7 @@ class _WeatherAppState extends State<WeatherApp> {
       var response = await Dio().get(
           'https://api.openweathermap.org/data/2.5/onecall',
           queryParameters: {
-            "lat": position?.latitude,
+            "lat": "60",
             "lon": position?.longitude,
             "appid": "767033a203c2a38ef86c24a3abcf1788",
             "units": "metric",
@@ -136,11 +144,14 @@ class _WeatherAppState extends State<WeatherApp> {
         .catchError((error) => print("Failed to add user: $error"));
   }
 
-  @override
-  void initState() {
-    super.initState();
-    initializeFlutterFire();
-    getUserLocation();
+  var name;
+  Future<void> getName() async {
+    DocumentSnapshot ds = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+    name = ds.data();
+    print(name);
   }
 
   @override
@@ -167,8 +178,7 @@ class _WeatherAppState extends State<WeatherApp> {
             ],
           ),
         ),
-        body: 
-        TabBarView(
+        body: TabBarView(
           children: [
             SafeArea(
               child: RefreshIndicator(
@@ -186,16 +196,17 @@ class _WeatherAppState extends State<WeatherApp> {
                     // ignore: unnecessary_string_escapes
                     Container(
                       alignment: Alignment.topCenter,
-                      child: Text(
-                        weather?.timezone ?? "",
-                        style: TextStyle(
-                          height: 3,
-                          fontWeight: FontWeight.w900,
-                          fontSize: 35,
-                          color: Colors.grey.shade900,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
+                      // child: Text(
+                      //   name[('locations')][("location_1")][("name")]
+                      //       .toString(),
+                      //   style: TextStyle(
+                      //     height: 3,
+                      //     fontWeight: FontWeight.w900,
+                      //     fontSize: 35,
+                      //     color: Colors.grey.shade900,
+                      //   ),
+                      //   textAlign: TextAlign.center,
+                      // ),
                     ),
                     Container(
                       alignment: Alignment.center,
@@ -346,10 +357,24 @@ class _WeatherAppState extends State<WeatherApp> {
                       alignment: Alignment.center,
                       child: TextButton(
                           onPressed: () {
+                            getName();
                             addLocation(FirebaseAuth.instance.currentUser!.uid);
                           },
                           child: const Text(
                             "Save Changes",
+                            style: TextStyle(color: Colors.white),
+                          )),
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(bottom: 390),
+                      alignment: Alignment.center,
+                      child: TextButton(
+                          onPressed: () {
+                            getWeatherData();
+                            getName();
+                          },
+                          child: const Text(
+                            "Refresh",
                             style: TextStyle(color: Colors.white),
                           )),
                     )
