@@ -49,6 +49,7 @@ dependencies:
   cloud_firestore_web: ^2.5.0
   firebase_core_web: ^1.2.0
   firebase_auth: ^3.2.0
+  pull_to_refresh: ^2.0.0
 
 
 dev_dependencies:
