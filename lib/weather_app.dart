@@ -196,8 +196,12 @@ class _WeatherAppState extends State<WeatherApp> {
 
   @override
   Widget build(BuildContext context) {
-    var tempinput = weather?.current.temp;
-    var temp = double.parse(tempinput?.toStringAsFixed(1) ?? "0");
+    var tempinput1 = weather?.current.temp;
+    var temp1 = double.parse(tempinput1?.toStringAsFixed(1) ?? "0");
+    var tempinput2 = weather2?.current.temp;
+    var temp2 = double.parse(tempinput2?.toStringAsFixed(1) ?? "0");
+    var tempinput3 = weather3?.current.temp;
+    var temp3 = double.parse(tempinput3?.toStringAsFixed(1) ?? "0");
     var icon = weather?.current.weather.first.icon ?? "01d";
     return DefaultTabController(
       initialIndex: 1,
@@ -223,415 +227,6 @@ class _WeatherAppState extends State<WeatherApp> {
         ),
         body: TabBarView(
           children: [
-            SafeArea(
-              child: RefreshIndicator(
-                onRefresh: getWeatherData1,
-                child: Stack(
-                  children: [
-                    Container(
-                      decoration: const BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage("assets/img/wallpaper.jpg"),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                    // ignore: unnecessary_string_escapes
-                    Container(
-                      alignment: Alignment.topCenter,
-                      // child: Text(
-                      //   name[('locations')][("location_1")][("name")]
-                      //       .toString(),
-                      //   style: TextStyle(
-                      //     height: 3,
-                      //     fontWeight: FontWeight.w900,
-                      //     fontSize: 35,
-                      //     color: Colors.grey.shade900,
-                      //   ),
-                      //   textAlign: TextAlign.center,
-                      // ),
-                    ),
-                    Container(
-                      alignment: Alignment.center,
-                      child: Text(
-                        "$temp C",
-                        style: const TextStyle(
-                          height: -1,
-                          fontWeight: FontWeight.w900,
-                          fontSize: 70,
-                          color: Colors.white,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                    Container(
-                      alignment: Alignment.topCenter,
-                      child: Text(
-                        "Humidity ${weather?.current.humidity.toString()}%",
-                        style: const TextStyle(
-                          height: 20,
-                          fontWeight: FontWeight.w900,
-                          fontSize: 30,
-                          color: Colors.white,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                    Container(
-                      child: IconButton(
-                          onPressed: () {
-                            addLocation(FirebaseAuth.instance.currentUser!.uid);
-                          },
-                          color: Colors.black,
-                          icon: Icon(Icons.add_location)),
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(right: 9, left: 9),
-                      // width: 300,
-                      alignment: Alignment.center,
-                      child: TextFormField(
-                        // obscureText: true,
-                        enableSuggestions: false,
-                        autocorrect: false,
-                        initialValue: position?.latitude.toString() ?? "Lat",
-                        keyboardType: TextInputType.name,
-                        keyboardAppearance: Brightness.dark,
-                        textAlign: TextAlign.center,
-                        textCapitalization: TextCapitalization.words,
-                        decoration: const InputDecoration(
-                          hintText: 'Latitude',
-                        ),
-                        // onChanged: (Text) {
-                        //   // print(Text);
-                        // },
-                        onChanged: (Text) {
-                          setState(() {
-                            location_1lat = Text;
-                          });
-                          print(location_1lat);
-                        },
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(right: 9, left: 9),
-                      // width: 300,
-                      height: 350,
-                      alignment: Alignment.bottomCenter,
-                      child: TextFormField(
-                        // obscureText: true,
-                        enableSuggestions: false,
-                        autocorrect: false,
-                        initialValue: position?.longitude.toString() ?? "Lat",
-                        keyboardType: TextInputType.name,
-                        keyboardAppearance: Brightness.dark,
-                        textAlign: TextAlign.center,
-                        textCapitalization: TextCapitalization.words,
-                        decoration: const InputDecoration(
-                          hintText: 'Longitude',
-                        ),
-                        // onChanged: (Text) {
-                        //   // print(Text);
-                        // },
-                        onChanged: (Text) {
-                          setState(() {
-                            location_3lon = Text;
-                          });
-                          print(location_1lon);
-                        },
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(right: 9, left: 9),
-                      // width: 300,
-                      height: 400,
-                      alignment: Alignment.bottomCenter,
-                      child: TextFormField(
-                        // obscureText: true,
-                        enableSuggestions: false,
-                        autocorrect: false,
-                        keyboardType: TextInputType.name,
-                        keyboardAppearance: Brightness.dark,
-                        textAlign: TextAlign.center,
-                        textCapitalization: TextCapitalization.words,
-                        decoration: const InputDecoration(
-                          hintText: 'Name',
-                        ),
-                        // onChanged: (Text) {
-                        //   // print(Text);
-                        // },
-                        onChanged: (Text) {
-                          setState(() {
-                            name1 = Text;
-                          });
-                          print(name1);
-                        },
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(right: 9, left: 9),
-                      // width: 300,
-                      height: 450,
-                      alignment: Alignment.bottomCenter,
-                      child: TextFormField(
-                        // obscureText: true,
-                        enableSuggestions: false,
-                        autocorrect: false,
-                        initialValue: position?.latitude.toString() ?? "Lat",
-                        keyboardType: TextInputType.name,
-                        keyboardAppearance: Brightness.dark,
-                        textAlign: TextAlign.center,
-                        textCapitalization: TextCapitalization.words,
-                        decoration: const InputDecoration(
-                          hintText: 'Latitude',
-                        ),
-                        // onChanged: (Text) {
-                        //   // print(Text);
-                        // },
-                        onChanged: (Text) {
-                          setState(() {
-                            location_1lat = Text;
-                          });
-                          print(location_1lat);
-                        },
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(top: 390),
-                      alignment: Alignment.center,
-                      child: TextButton(
-                          onPressed: () {
-                            getName();
-                            addLocation(FirebaseAuth.instance.currentUser!.uid);
-                          },
-                          child: const Text(
-                            "Save Changes",
-                            style: TextStyle(color: Colors.white),
-                          )),
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(bottom: 390),
-                      alignment: Alignment.center,
-                      child: TextButton(
-                          onPressed: () {
-                            initializeFlutterFire();
-                            getName();
-                            getWeatherData1();
-                            getWeatherData2();
-                            getWeatherData3();
-                          },
-                          child: const Text(
-                            "Refresh",
-                            style: TextStyle(color: Colors.white),
-                          )),
-                    )
-                  ],
-                ),
-              ),
-            ),
-            SafeArea(
-              child: RefreshIndicator(
-                onRefresh: getWeatherData2,
-                child: Stack(
-                  children: [
-                    Container(
-                      decoration: const BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage("assets/img/wallpaper.jpg"),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                    // ignore: unnecessary_string_escapes
-                    Container(
-                      alignment: Alignment.topCenter,
-                      child: Text(
-                        weather2?.timezone ?? "...",
-                        style: TextStyle(
-                          height: 3,
-                          fontWeight: FontWeight.w900,
-                          fontSize: 35,
-                          color: Colors.grey.shade900,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                    Container(
-                      alignment: Alignment.center,
-                      child: Text(
-                        "${weather2?.current.temp} C",
-                        style: const TextStyle(
-                          height: -1,
-                          fontWeight: FontWeight.w900,
-                          fontSize: 70,
-                          color: Colors.white,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                    Container(
-                      alignment: Alignment.topCenter,
-                      child: Text(
-                        "Humidity ${weather2?.current.humidity.toString()}%",
-                        style: const TextStyle(
-                          height: 20,
-                          fontWeight: FontWeight.w900,
-                          fontSize: 30,
-                          color: Colors.white,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                    Container(
-                      child: IconButton(
-                          onPressed: () {
-                            addLocation(FirebaseAuth.instance.currentUser!.uid);
-                          },
-                          color: Colors.black,
-                          icon: Icon(Icons.add_location)),
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(right: 9, left: 9),
-                      // width: 300,
-                      alignment: Alignment.center,
-                      child: TextFormField(
-                        // obscureText: true,
-                        enableSuggestions: false,
-                        autocorrect: false,
-                        initialValue: position?.latitude.toString() ?? "Lat",
-                        keyboardType: TextInputType.name,
-                        keyboardAppearance: Brightness.dark,
-                        textAlign: TextAlign.center,
-                        textCapitalization: TextCapitalization.words,
-                        decoration: const InputDecoration(
-                          hintText: 'Latitude',
-                        ),
-                        // onChanged: (Text) {
-                        //   // print(Text);
-                        // },
-                        onChanged: (Text) {
-                          setState(() {
-                            location_1lat = Text;
-                          });
-                          print(location_1lat);
-                        },
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(right: 9, left: 9),
-                      // width: 300,
-                      height: 350,
-                      alignment: Alignment.bottomCenter,
-                      child: TextFormField(
-                        // obscureText: true,
-                        enableSuggestions: false,
-                        autocorrect: false,
-                        initialValue: position?.longitude.toString() ?? "Lat",
-                        keyboardType: TextInputType.name,
-                        keyboardAppearance: Brightness.dark,
-                        textAlign: TextAlign.center,
-                        textCapitalization: TextCapitalization.words,
-                        decoration: const InputDecoration(
-                          hintText: 'Longitude',
-                        ),
-                        // onChanged: (Text) {
-                        //   // print(Text);
-                        // },
-                        onChanged: (Text) {
-                          setState(() {
-                            location_3lon = Text;
-                          });
-                          print(location_1lon);
-                        },
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(right: 9, left: 9),
-                      // width: 300,
-                      height: 400,
-                      alignment: Alignment.bottomCenter,
-                      child: TextFormField(
-                        // obscureText: true,
-                        enableSuggestions: false,
-                        autocorrect: false,
-                        keyboardType: TextInputType.name,
-                        keyboardAppearance: Brightness.dark,
-                        textAlign: TextAlign.center,
-                        textCapitalization: TextCapitalization.words,
-                        decoration: const InputDecoration(
-                          hintText: 'Name',
-                        ),
-                        // onChanged: (Text) {
-                        //   // print(Text);
-                        // },
-                        onChanged: (Text) {
-                          setState(() {
-                            name1 = Text;
-                          });
-                          print(name1);
-                        },
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(right: 9, left: 9),
-                      // width: 300,
-                      height: 450,
-                      alignment: Alignment.bottomCenter,
-                      child: TextFormField(
-                        // obscureText: true,
-                        enableSuggestions: false,
-                        autocorrect: false,
-                        initialValue: position?.latitude.toString() ?? "Lat",
-                        keyboardType: TextInputType.name,
-                        keyboardAppearance: Brightness.dark,
-                        textAlign: TextAlign.center,
-                        textCapitalization: TextCapitalization.words,
-                        decoration: const InputDecoration(
-                          hintText: 'Latitude',
-                        ),
-                        // onChanged: (Text) {
-                        //   // print(Text);
-                        // },
-                        onChanged: (Text) {
-                          setState(() {
-                            location_1lat = Text;
-                          });
-                          print(location_1lat);
-                        },
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(top: 390),
-                      alignment: Alignment.center,
-                      child: TextButton(
-                          onPressed: () {
-                            getName();
-                            addLocation(FirebaseAuth.instance.currentUser!.uid);
-                          },
-                          child: const Text(
-                            "Save Changes",
-                            style: TextStyle(color: Colors.white),
-                          )),
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(bottom: 390),
-                      alignment: Alignment.center,
-                      child: TextButton(
-                          onPressed: () {
-                            initializeFlutterFire();
-                            getName();
-                            getWeatherData1();
-                            getWeatherData2();
-                            getWeatherData3();
-                          },
-                          child: const Text(
-                            "Refresh",
-                            style: TextStyle(color: Colors.white),
-                          )),
-                    )
-                  ],
-                ),
-              ),
-            ),
             SafeArea(
               child: RefreshIndicator(
                 backgroundColor: Colors.white,
@@ -662,7 +257,7 @@ class _WeatherAppState extends State<WeatherApp> {
                         Container(
                           alignment: Alignment.topCenter,
                           child: Text(
-                            weather3?.timezone ?? "...",
+                            weather?.timezone ?? "...",
                             style: TextStyle(
                               height: 2,
                               fontWeight: FontWeight.w900,
@@ -675,7 +270,7 @@ class _WeatherAppState extends State<WeatherApp> {
                         Container(
                           alignment: Alignment.center,
                           child: Text(
-                            "$temp C",
+                            "$temp1 C",
                             style: const TextStyle(
                               // height: -1,
                               fontWeight: FontWeight.w900,
@@ -850,6 +445,472 @@ class _WeatherAppState extends State<WeatherApp> {
                           alignment: Alignment.topCenter,
                           child: Text(
                             "Humidity ${weather?.current.humidity.toString()}%",
+                            style: const TextStyle(
+                              // height: 20,
+                              fontWeight: FontWeight.w900,
+                              fontSize: 30,
+                              color: Colors.white,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SafeArea(
+              child: RefreshIndicator(
+                backgroundColor: Colors.white,
+                color: Colors.black,
+                triggerMode: RefreshIndicatorTriggerMode.onEdge,
+                onRefresh: getWeatherData3,
+                child: Stack(
+                  children: [
+                    Container(
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/img/wallpaper.jpg"),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      child: IconButton(
+                          onPressed: () {
+                            addLocation(FirebaseAuth.instance.currentUser!.uid);
+                          },
+                          color: Colors.black,
+                          icon: Icon(Icons.add_location)),
+                    ),
+                    ListView(
+                      children: [
+                        // ignore: unnecessary_string_escapes
+                        Container(
+                          alignment: Alignment.topCenter,
+                          child: Text(
+                            weather2?.timezone ?? "...",
+                            style: TextStyle(
+                              height: 2,
+                              fontWeight: FontWeight.w900,
+                              fontSize: 35,
+                              color: Colors.grey.shade900,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                        Container(
+                          alignment: Alignment.center,
+                          child: Text(
+                            "$temp2 C",
+                            style: const TextStyle(
+                              // height: -1,
+                              fontWeight: FontWeight.w900,
+                              fontSize: 70,
+                              color: Colors.white,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(right: 9, left: 9),
+                          // width: 300,
+                          alignment: Alignment.center,
+                          child: TextFormField(
+                            // obscureText: true,
+                            enableSuggestions: false,
+                            autocorrect: false,
+                            initialValue:
+                                position?.latitude.toString() ?? "Lat",
+                            keyboardType: TextInputType.name,
+                            keyboardAppearance: Brightness.dark,
+                            textAlign: TextAlign.center,
+                            textCapitalization: TextCapitalization.words,
+                            decoration: const InputDecoration(
+                              hintText: 'Latitude',
+                            ),
+                            onChanged: (Text) {
+                              setState(() {
+                                location_1lat = Text;
+                              });
+                              print(location_1lat);
+                            },
+                            onSaved: (Text) {
+                              setState(() {
+                                location_1lat = Text.toString();
+                              });
+                              print(location_1lat);
+                            },
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(right: 9, left: 9),
+                          // width: 300,
+                          // height: 350,
+                          alignment: Alignment.bottomCenter,
+                          child: TextFormField(
+                            // obscureText: true,
+                            enableSuggestions: false,
+                            autocorrect: false,
+                            initialValue:
+                                position?.longitude.toString() ?? "Lat",
+                            keyboardType: TextInputType.name,
+                            keyboardAppearance: Brightness.dark,
+                            textAlign: TextAlign.center,
+                            textCapitalization: TextCapitalization.words,
+                            decoration: const InputDecoration(
+                              hintText: 'Longitude',
+                            ),
+                            onChanged: (Text) {
+                              setState(() {
+                                location_1lon = Text;
+                              });
+                              print(location_1lon);
+                            },
+                            onSaved: (Text) {
+                              setState(() {
+                                location_1lon = Text.toString();
+                              });
+                              print(location_1lat);
+                            },
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(right: 9, left: 9),
+                          // width: 300,
+                          // height: 400,
+                          alignment: Alignment.bottomCenter,
+                          child: TextFormField(
+                            // obscureText: true,
+                            enableSuggestions: false,
+                            autocorrect: false,
+                            keyboardType: TextInputType.name,
+                            keyboardAppearance: Brightness.dark,
+                            textAlign: TextAlign.center,
+                            textCapitalization: TextCapitalization.words,
+                            decoration: const InputDecoration(
+                              hintText: 'Name',
+                            ),
+                            // onChanged: (Text) {
+                            //   // print(Text);
+                            // },
+                            onChanged: (Text) {
+                              setState(() {
+                                name1 = Text;
+                              });
+                              print(name1);
+                            },
+                            onSaved: (Text) {
+                              setState(() {
+                                name1 = Text.toString();
+                              });
+                              print(location_1lat);
+                            },
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(right: 9, left: 9),
+                          // width: 300,
+                          // height: 450,
+                          alignment: Alignment.bottomCenter,
+                          child: TextFormField(
+                            // obscureText: true,
+                            enableSuggestions: false,
+                            autocorrect: false,
+                            initialValue:
+                                position?.latitude.toString() ?? "Lat",
+                            keyboardType: TextInputType.name,
+                            keyboardAppearance: Brightness.dark,
+                            textAlign: TextAlign.center,
+                            textCapitalization: TextCapitalization.words,
+                            decoration: const InputDecoration(
+                              hintText: 'Wallpaper',
+                            ),
+                            // onChanged: (Text) {
+                            //   // print(Text);
+                            // },
+                            onChanged: (Text) {
+                              setState(() {
+                                wallpaper1 = Text;
+                              });
+                              print(location_1lat);
+                            },
+                            onSaved: (Text) {
+                              setState(() {
+                                wallpaper1 = Text.toString();
+                              });
+                              print(location_1lat);
+                            },
+                          ),
+                        ),
+                        Container(
+                          // padding: EdgeInsets.only(top: 390),
+                          alignment: Alignment.center,
+                          child: TextButton(
+                              onPressed: () {
+                                getName();
+                                addLocation(
+                                    FirebaseAuth.instance.currentUser!.uid);
+                              },
+                              child: const Text(
+                                "Save Changes",
+                                style: TextStyle(color: Colors.white),
+                              )),
+                        ),
+                        Container(
+                          // padding: EdgeInsets.only(bottom: 390),
+                          alignment: Alignment.center,
+                          child: TextButton(
+                              onPressed: () {
+                                initializeFlutterFire();
+                                getName();
+                                getWeatherData1();
+                                getWeatherData2();
+                                getWeatherData3();
+                              },
+                              child: const Text(
+                                "Refresh",
+                                style: TextStyle(color: Colors.white),
+                              )),
+                        ),
+                        Container(
+                          alignment: Alignment.topCenter,
+                          child: Text(
+                            "Humidity ${weather2?.current.humidity.toString()}%",
+                            style: const TextStyle(
+                              // height: 20,
+                              fontWeight: FontWeight.w900,
+                              fontSize: 30,
+                              color: Colors.white,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SafeArea(
+              child: RefreshIndicator(
+                backgroundColor: Colors.white,
+                color: Colors.black,
+                triggerMode: RefreshIndicatorTriggerMode.onEdge,
+                onRefresh: getWeatherData3,
+                child: Stack(
+                  children: [
+                    Container(
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/img/wallpaper.jpg"),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      child: IconButton(
+                          onPressed: () {
+                            addLocation(FirebaseAuth.instance.currentUser!.uid);
+                          },
+                          color: Colors.black,
+                          icon: Icon(Icons.add_location)),
+                    ),
+                    ListView(
+                      children: [
+                        // ignore: unnecessary_string_escapes
+                        Container(
+                          alignment: Alignment.topCenter,
+                          child: Text(
+                            weather3?.timezone ?? "...",
+                            style: TextStyle(
+                              height: 2,
+                              fontWeight: FontWeight.w900,
+                              fontSize: 35,
+                              color: Colors.grey.shade900,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                        Container(
+                          alignment: Alignment.center,
+                          child: Text(
+                            "$temp3 C",
+                            style: const TextStyle(
+                              // height: -1,
+                              fontWeight: FontWeight.w900,
+                              fontSize: 70,
+                              color: Colors.white,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(right: 9, left: 9),
+                          // width: 300,
+                          alignment: Alignment.center,
+                          child: TextFormField(
+                            // obscureText: true,
+                            enableSuggestions: false,
+                            autocorrect: false,
+                            initialValue:
+                                position?.latitude.toString() ?? "Lat",
+                            keyboardType: TextInputType.name,
+                            keyboardAppearance: Brightness.dark,
+                            textAlign: TextAlign.center,
+                            textCapitalization: TextCapitalization.words,
+                            decoration: const InputDecoration(
+                              hintText: 'Latitude',
+                            ),
+                            onChanged: (Text) {
+                              setState(() {
+                                location_1lat = Text;
+                              });
+                              print(location_1lat);
+                            },
+                            onSaved: (Text) {
+                              setState(() {
+                                location_1lat = Text.toString();
+                              });
+                              print(location_1lat);
+                            },
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(right: 9, left: 9),
+                          // width: 300,
+                          // height: 350,
+                          alignment: Alignment.bottomCenter,
+                          child: TextFormField(
+                            // obscureText: true,
+                            enableSuggestions: false,
+                            autocorrect: false,
+                            initialValue:
+                                position?.longitude.toString() ?? "Lat",
+                            keyboardType: TextInputType.name,
+                            keyboardAppearance: Brightness.dark,
+                            textAlign: TextAlign.center,
+                            textCapitalization: TextCapitalization.words,
+                            decoration: const InputDecoration(
+                              hintText: 'Longitude',
+                            ),
+                            onChanged: (Text) {
+                              setState(() {
+                                location_1lon = Text;
+                              });
+                              print(location_1lon);
+                            },
+                            onSaved: (Text) {
+                              setState(() {
+                                location_1lon = Text.toString();
+                              });
+                              print(location_1lat);
+                            },
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(right: 9, left: 9),
+                          // width: 300,
+                          // height: 400,
+                          alignment: Alignment.bottomCenter,
+                          child: TextFormField(
+                            // obscureText: true,
+                            enableSuggestions: false,
+                            autocorrect: false,
+                            keyboardType: TextInputType.name,
+                            keyboardAppearance: Brightness.dark,
+                            textAlign: TextAlign.center,
+                            textCapitalization: TextCapitalization.words,
+                            decoration: const InputDecoration(
+                              hintText: 'Name',
+                            ),
+                            // onChanged: (Text) {
+                            //   // print(Text);
+                            // },
+                            onChanged: (Text) {
+                              setState(() {
+                                name1 = Text;
+                              });
+                              print(name1);
+                            },
+                            onSaved: (Text) {
+                              setState(() {
+                                name1 = Text.toString();
+                              });
+                              print(location_1lat);
+                            },
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(right: 9, left: 9),
+                          // width: 300,
+                          // height: 450,
+                          alignment: Alignment.bottomCenter,
+                          child: TextFormField(
+                            // obscureText: true,
+                            enableSuggestions: false,
+                            autocorrect: false,
+                            initialValue:
+                                position?.latitude.toString() ?? "Lat",
+                            keyboardType: TextInputType.name,
+                            keyboardAppearance: Brightness.dark,
+                            textAlign: TextAlign.center,
+                            textCapitalization: TextCapitalization.words,
+                            decoration: const InputDecoration(
+                              hintText: 'Wallpaper',
+                            ),
+                            // onChanged: (Text) {
+                            //   // print(Text);
+                            // },
+                            onChanged: (Text) {
+                              setState(() {
+                                wallpaper1 = Text;
+                              });
+                              print(location_1lat);
+                            },
+                            onSaved: (Text) {
+                              setState(() {
+                                wallpaper1 = Text.toString();
+                              });
+                              print(location_1lat);
+                            },
+                          ),
+                        ),
+                        Container(
+                          // padding: EdgeInsets.only(top: 390),
+                          alignment: Alignment.center,
+                          child: TextButton(
+                              onPressed: () {
+                                getName();
+                                addLocation(
+                                    FirebaseAuth.instance.currentUser!.uid);
+                              },
+                              child: const Text(
+                                "Save Changes",
+                                style: TextStyle(color: Colors.white),
+                              )),
+                        ),
+                        Container(
+                          // padding: EdgeInsets.only(bottom: 390),
+                          alignment: Alignment.center,
+                          child: TextButton(
+                              onPressed: () {
+                                initializeFlutterFire();
+                                getName();
+                                getWeatherData1();
+                                getWeatherData2();
+                                getWeatherData3();
+                              },
+                              child: const Text(
+                                "Refresh",
+                                style: TextStyle(color: Colors.white),
+                              )),
+                        ),
+                        Container(
+                          alignment: Alignment.topCenter,
+                          child: Text(
+                            "Humidity ${weather3?.current.humidity.toString()}%",
                             style: const TextStyle(
                               // height: 20,
                               fontWeight: FontWeight.w900,
