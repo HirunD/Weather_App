@@ -9,8 +9,9 @@ import 'package:profile/splash_screen.dart';
 import 'package:profile/Todoli.dart';
 import 'package:profile/weather_app.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
